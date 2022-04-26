@@ -1,4 +1,4 @@
-pragma solidity 0.6.12;
+pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 //----------------------------------------------------------------------------------
@@ -315,7 +315,7 @@ contract Crowdsale is IMisoMarket, MISOAccessControls, SafeTransfer, Documents ,
     }
 
     function withdrawTokens() public  {
-        withdrawTokens(msg.sender);
+        withdrawTokens(payable(msg.sender));
     }
 
     /**
@@ -425,7 +425,7 @@ contract Crowdsale is IMisoMarket, MISOAccessControls, SafeTransfer, Documents ,
     }
 
     function getTokenAmount(uint256 _amount) public view returns (uint256) {
-        _getTokenAmount(_amount);
+        return _getTokenAmount(_amount);
     }
 
     /**

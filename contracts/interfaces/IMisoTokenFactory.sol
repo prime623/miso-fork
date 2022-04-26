@@ -1,5 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
 
+pragma solidity ^0.8.0;
 interface IMisoTokenFactory {
     function numberOfTokens() external view returns (uint256);
     function getTokens() external view returns (address[] memory);

@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 import "../Access/MISOAccessControls.sol";
@@ -240,7 +242,7 @@ contract FarmHelper is BaseHelper, TokenHelper {
 
         for (uint256 i = 0; i < numberOfFarms; i++) {
             address farmAddr = farmFactory.farms(i);
-            uint256 templateId = farmFactory.getTemplateId(farmAddr);
+          //  uint256 templateId = farmFactory.getTemplateId(farmAddr);
             infos[i] = _farmInfo(farmAddr);
         }
 
@@ -338,7 +340,7 @@ contract FarmHelper is BaseHelper, TokenHelper {
             uint256[] memory pids = new uint256[](poolLength);
 
             for(uint256 j = 0; j < poolLength; j++) {
-                (address stakingToken,,,) = farm.poolInfo(j);
+             //   (address stakingToken,,,) = farm.poolInfo(j);
                 (totalStaked[j],) = farm.userInfo(j, _user);
                 pendingRewards[j] = farm.pendingRewards(j, _user);
                 pids[j] = j;
@@ -726,7 +728,7 @@ contract MISOHelper is MarketHelper, FarmHelper {
         address _market,
         address _launcher,
         address _farmFactory
-    ) public { 
+    ) { 
         require(_accessControls != address(0));
         accessControls = MISOAccessControls(_accessControls);
         tokenFactory = IMisoTokenFactory(_tokenFactory);

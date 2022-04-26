@@ -1,4 +1,4 @@
-pragma solidity 0.6.12;
+pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
                    
@@ -206,7 +206,7 @@ contract HyperbolicAuction is IMisoMarket, MISOAccessControls, SafeTransfer, Doc
     function priceFunction() public view returns (uint256) {
         /// @dev Return Auction Price
         if (block.timestamp <= uint256(marketInfo.startTime)) {
-            return uint256(-1);
+            return type(uint256).max;
         }
         if (block.timestamp >= uint256(marketInfo.endTime)) {
             return uint256(marketPrice.minimumPrice);
@@ -456,7 +456,7 @@ contract HyperbolicAuction is IMisoMarket, MISOAccessControls, SafeTransfer, Doc
 
    /// @notice Withdraws bought tokens, or returns commitment if the sale is unsuccessful.
     function withdrawTokens() public  {
-        withdrawTokens(msg.sender);
+        withdrawTokens(payable(msg.sender));
     }
 
     /// @notice Withdraw your tokens once the Auction has ended.

@@ -1,5 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT    
 
+pragma solidity ^0.8.0;
 import "./ERC20.sol";
 import "../interfaces/IMisoToken.sol";
 
@@ -13,7 +14,7 @@ import "../interfaces/IMisoToken.sol";
 // <https://github.com/chefgonpachi/MISO/>
 //
 // ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
+                    
 // ---------------------------------------------------------------------
 
 contract FixedToken is ERC20, IMisoToken {

@@ -1,5 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
 
+pragma solidity ^0.8.0;
 import "../OpenZeppelin/GSN/Context.sol";
 import "../OpenZeppelin/math/SafeMath.sol";
 import "../OpenZeppelin/utils/Address.sol";
@@ -30,7 +31,7 @@ import "../interfaces/IERC20.sol";
  * allowances. See {IERC20-approve}.
  */
 
-contract USDC is IERC20, Context {
+abstract contract USDC is IERC20, Context {
     using SafeMath for uint256;
     using Address for address;
     bytes32 public DOMAIN_SEPARATOR;
@@ -42,8 +43,8 @@ contract USDC is IERC20, Context {
 
     uint256 private _totalSupply;
 
-    string private _name;
-    string private _symbol;
+    string private name;
+    string private symbol;
     uint8 private _decimals;
     bool private _initialized;
 
@@ -59,7 +60,7 @@ contract USDC is IERC20, Context {
 
 
     /// @dev First set the token variables. This can only be done once
-    function initToken(string memory _name, string memory _symbol, address _owner, uint256 _initialSupply) public  {
+    function initToken(string memory _name, string memory _symbol, address _owner, uint256 _initialSupply) public {
         _initERC20(_name, _symbol);
         _mint(msg.sender, _initialSupply);
     }
@@ -79,8 +80,8 @@ contract USDC is IERC20, Context {
 
     function _initERC20(string memory name_, string memory symbol_) internal {
         require(!_initialized, "ERC20: token has already been initialized!");
-        _name = name_;
-        _symbol = symbol_;
+        name = name_;
+        symbol = symbol_;
         _decimals = 6;
         uint256 chainId;
         assembly {
@@ -94,16 +95,16 @@ contract USDC is IERC20, Context {
     /**
      * @dev Returns the name of the token.
      */
-    function name() public view override returns (string memory) {
-        return _name;
+    function getName() public view returns (string memory) {
+        return name;
     }
 
     /**
      * @dev Returns the symbol of the token, usually a shorter version of the
      * name.
      */
-    function symbol() public view override returns (string memory) {
-        return _symbol;
+    function getSymbol() public view returns (string memory) {
+        return symbol;
     }
 
     /**

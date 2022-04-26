@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 import "../interfaces/IPointList.sol";
 import "../interfaces/IERC20.sol";
@@ -13,7 +15,7 @@ contract TokenList {
     /// @notice Whether initialised or not.
     bool private initialised;
 
-    constructor() public {
+    constructor() {
     }
 
     /**

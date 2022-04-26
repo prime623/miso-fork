@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 import "../OpenZeppelin/access/AccessControl.sol";
 
@@ -21,7 +23,7 @@ contract MISOAdminAccess is AccessControl {
 
 
     /// @notice The deployer is automatically given the admin role which will allow them to then grant roles to other addresses.
-    constructor() public {
+    constructor() {
     }
 
     /**

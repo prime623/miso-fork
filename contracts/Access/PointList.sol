@@ -1,5 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
 
+pragma solidity ^0.8.0;
 /**
  * @dev GP Make a whitelist but instead of adding and removing, set an uint amount for a address
  * @dev mapping(address => uint256) public points;
@@ -26,7 +27,7 @@ contract PointList is IPointList, MISOAccessControls {
     event PointsUpdated(address indexed account, uint256 oldPoints, uint256 newPoints);
 
 
-    constructor() public {
+    constructor() {
     }
 
     /**

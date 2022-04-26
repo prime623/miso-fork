@@ -1,5 +1,6 @@
+// SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity ^0.8.0;
 
 import "../interfaces/IERC20.sol";
 
@@ -48,7 +49,7 @@ contract CalculationsSushiswap {
         address _secondaryRouterAddress,
         address _secondaryFactoryAddress,
         address _usdcAddress
-    ) public {
+    ) {
         primaryRouterAddress = _primaryRouterAddress;
         primaryFactoryAddress = _primaryFactoryAddress;
         secondaryRouterAddress = _secondaryRouterAddress;

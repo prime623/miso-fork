@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 //----------------------------------------------------------------------------------
 //    I n s t a n t
@@ -36,7 +38,7 @@ pragma solidity 0.6.12;
 // <https://github.com/chefgonpachi/MISO/>
 //
 // ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
+                     
 // ---------------------------------------------------------------------
 
 import "./Utils/SafeTransfer.sol";
@@ -116,7 +118,7 @@ contract MISOLauncher is SafeTransfer {
     /// @notice Event emitted when launcher template is removed.
     event LauncherTemplateRemoved(address launcher, uint256 templateId);
 
-    constructor() public {
+    constructor() {
     }
 
     /**

@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 import "../OpenZeppelin/math/SafeMath.sol";
 import "../interfaces/IERC20.sol";
@@ -100,7 +102,7 @@ contract MISORecipe01 {
         address _misoLauncher,
         address _uniswapFactory,
         address _farmFactory
-    ) public {
+    ) {
         tokenFactory = IMISOTokenFactory(_tokenFactory);
         weth = IWETH(_weth);
         misoMarket = IMISOMarket(_misoMarket);
@@ -130,11 +132,11 @@ contract MISORecipe01 {
 
         // Scope for adding liquidity
         uint256 templateId = misoLauncher.currentTemplateId(1);
-        IPoolLiquidity poolLiquidity = IPoolLiquidity(misoLauncher.createLauncher(templateId,address(token),0,address(0),""));
+        IPoolLiquidity poolLiquidity = IPoolLiquidity(misoLauncher.createLauncher(templateId,address(token),0,payable(msg.sender),""));
 
         {
         address operator = msg.sender;
-        address payable wallet = msg.sender;
+        address payable wallet = payable(msg.sender);
 
         uint256 duration = 1000;
         uint256 launchwindow = 100;
@@ -162,7 +164,7 @@ contract MISORecipe01 {
         uint256 endTime = block.timestamp + 100;
         uint256 marketRate = 100;
         uint256 marketGoal = 200;
-        address payable wallet = msg.sender;
+        address payable wallet = payable(msg.sender);
 
         IMisoCrowdsale crowdsale = IMisoCrowdsale(misoMarket.createCrowdsale(
             address(token), 
@@ -180,7 +182,7 @@ contract MISORecipe01 {
 
         // Scope for creating farm
         {
-        address payable devAddr = msg.sender;
+        address payable devAddr = payable(msg.sender);
         uint256 tokensToFarm = 10;
         IMasterChef farm = IMasterChef(farmFactory.createFarm{value: msg.value}(
                 address(token),

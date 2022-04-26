@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 interface IMasterContract {
     /// @notice Init function that gets called from `BoringFactory.deploy`.

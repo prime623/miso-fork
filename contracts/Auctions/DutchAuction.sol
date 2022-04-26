@@ -1,4 +1,4 @@
-pragma solidity 0.6.12;
+pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 
@@ -484,7 +484,7 @@ contract DutchAuction is IMisoMarket, MISOAccessControls, SafeTransfer, Document
 
     /// @notice Withdraws bought tokens, or returns commitment if the sale is unsuccessful.
     function withdrawTokens() public  {
-        withdrawTokens(msg.sender);
+        withdrawTokens(payable(msg.sender));
     }
 
    /**

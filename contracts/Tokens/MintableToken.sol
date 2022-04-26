@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 import "../OpenZeppelin/access/AccessControl.sol";
 import "./ERC20/ERC20Burnable.sol";
@@ -15,7 +17,7 @@ import "../interfaces/IMisoToken.sol";
 // <https://github.com/chefgonpachi/MISO/>
 //
 // ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
+                     
 // ---------------------------------------------------------------------
 
 contract MintableToken is AccessControl, ERC20Burnable, ERC20Pausable, IMisoToken {

@@ -1,4 +1,4 @@
-pragma solidity 0.6.12;
+pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 //----------------------------------------------------------------------------------
@@ -307,18 +307,17 @@ contract BatchAuction is  IMisoMarket, MISOAccessControls, SafeTransfer, Documen
 
     /// @notice Withdraws bought tokens, or returns commitment if the sale is unsuccessful.
     function withdrawTokens() public  {
-        withdrawTokens(msg.sender);
+        withdrawTokens(payable(msg.sender));
     }
 
     /// @notice Withdraw your tokens once the Auction has ended.
-    function withdrawTokens(address payable beneficiary) public   nonReentrant  {
+    function withdrawTokens(address payable beneficiary) public nonReentrant  {
         if (auctionSuccessful()) {
             require(marketStatus.finalized, "BatchAuction: not finalized");
             /// @dev Successful auction! Transfer claimed tokens.
             uint256 tokensToClaim = tokensClaimable(beneficiary);
             require(tokensToClaim > 0, "BatchAuction: No tokens to claim");
             claimed[beneficiary] = claimed[beneficiary].add(tokensToClaim);
-
             _safeTokenPayment(auctionToken, beneficiary, tokensToClaim);
         } else {
             /// @dev Auction did not meet reserve price.

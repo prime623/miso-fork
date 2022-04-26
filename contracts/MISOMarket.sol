@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 //----------------------------------------------------------------------------------
 //    I n s t a n t
@@ -35,8 +37,7 @@ pragma solidity 0.6.12;
 // Enjoy. (c) Chef Gonpachi 2021 
 // <https://github.com/chefgonpachi/MISO/>
 //
-// ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
+                      
 // ---------------------------------------------------------------------
 
 import "./Access/MISOAccessControls.sol";
@@ -114,7 +115,7 @@ contract MISOMarket is SafeTransfer {
     /// @notice Event emitted when auction is created using template id.
     event MarketCreated(address indexed owner, address indexed addr, address marketTemplate);
 
-    constructor() public {
+    constructor() {
     }
 
     /**

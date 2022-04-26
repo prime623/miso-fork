@@ -1,5 +1,6 @@
+// SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity ^0.8.0;
 
 import "../interfaces/IERC20.sol";
 
@@ -36,7 +37,7 @@ contract PairsHelper {
     address public uniqueAddressesHelperAddress;
     IUniqueAddressesHelper uniqueAddressesHelper;
 
-    constructor(address _wethAddress, address _uniqueAddressesHelperAddress) public {
+    constructor(address _wethAddress, address _uniqueAddressesHelperAddress) {
         uniqueAddressesHelperAddress = _uniqueAddressesHelperAddress;
         uniqueAddressesHelper = IUniqueAddressesHelper(
             uniqueAddressesHelperAddress

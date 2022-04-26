@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 
 import "./ERC20.sol";
@@ -15,8 +17,7 @@ import "../OpenZeppelin/access/AccessControl.sol";
 // Enjoy. (c) Chef Gonpachi 2021 
 // <https://github.com/chefgonpachi/MISO/>
 //
-// ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
+                     
 // ---------------------------------------------------------------------
 
 contract SushiToken is IMisoToken, AccessControl, ERC20 {
@@ -180,7 +181,7 @@ contract SushiToken is IMisoToken, AccessControl, ERC20 {
         address signatory = ecrecover(digest, v, r, s);
         require(signatory != address(0), "SUSHI::delegateBySig: invalid signature");
         require(nonce == sigNonces[signatory]++, "SUSHI::delegateBySig: invalid nonce");
-        require(now <= expiry, "SUSHI::delegateBySig: signature expired");
+        require(block.timestamp <= expiry, "SUSHI::delegateBySig: signature expired");
         return _delegate(signatory, delegatee);
     }
 
@@ -261,7 +262,7 @@ contract SushiToken is IMisoToken, AccessControl, ERC20 {
                 // decrease old representative
                 uint32 srcRepNum = numCheckpoints[srcRep];
                 uint256 srcRepOld = srcRepNum > 0 ? checkpoints[srcRep][srcRepNum - 1].votes : 0;
-                uint256 srcRepNew = srcRepOld.sub(amount);
+                uint256 srcRepNew = srcRepOld - amount;
                 _writeCheckpoint(srcRep, srcRepNum, srcRepOld, srcRepNew);
             }
 
@@ -269,7 +270,7 @@ contract SushiToken is IMisoToken, AccessControl, ERC20 {
                 // increase new representative
                 uint32 dstRepNum = numCheckpoints[dstRep];
                 uint256 dstRepOld = dstRepNum > 0 ? checkpoints[dstRep][dstRepNum - 1].votes : 0;
-                uint256 dstRepNew = dstRepOld.add(amount);
+                uint256 dstRepNew = dstRepOld + amount;
                 _writeCheckpoint(dstRep, dstRepNum, dstRepOld, dstRepNew);
             }
         }
@@ -300,7 +301,7 @@ contract SushiToken is IMisoToken, AccessControl, ERC20 {
         return uint32(n);
     }
 
-    function getChainId() internal pure returns (uint) {
+    function getChainId() internal view returns (uint) {
         uint256 chainId;
         assembly { chainId := chainid() }
         return chainId;

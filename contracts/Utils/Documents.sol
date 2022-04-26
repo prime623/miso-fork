@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 pragma experimental ABIEncoderV2;
 
 
@@ -38,7 +40,6 @@ contract Documents {
             _docNames.push(_name);
             _documents[_name].docIndex = uint32(_docNames.length);
         }
-        _documents[_name] = Document(_documents[_name].docIndex, uint64(now), _data);
         emit DocumentUpdated(_name, _data);
     }
 

@@ -1,4 +1,6 @@
-pragma solidity 0.6.12;
+// SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
 
 //----------------------------------------------------------------------------------
 //    I n s t a n t
@@ -36,7 +38,7 @@ pragma solidity 0.6.12;
 // <https://github.com/chefgonpachi/MISO/>
 //
 // ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
+                     
 // ---------------------------------------------------------------------
 
 
@@ -45,6 +47,8 @@ import "./interfaces/IMisoToken.sol";
 import "./Access/MISOAccessControls.sol";
 import "./Utils/SafeTransfer.sol";
 import "./interfaces/IERC20.sol";
+//import "./@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
 
 contract MISOTokenFactory is CloneFactory, SafeTransfer{
     
@@ -105,7 +109,7 @@ contract MISOTokenFactory is CloneFactory, SafeTransfer{
     /// @notice Event emitted when a token template is removed.
     event TokenTemplateRemoved(address token, uint256 templateId);
 
-    constructor() public {
+    constructor() {
     }
 
     /**
@@ -224,7 +228,7 @@ contract MISOTokenFactory is CloneFactory, SafeTransfer{
             );
         }
         require(msg.value >= minimumFee, "MISOTokenFactory: Failed to transfer minimumFee");
-        require(tokenTemplates[_templateId] != address(0));
+        require(tokenTemplates[_templateId] != address(0), "address 0");
         uint256 integratorFee = 0;
         uint256 misoFee = msg.value;
         if (_integratorFeeAccount != address(0) && _integratorFeeAccount != misoDiv) {
@@ -234,7 +238,9 @@ contract MISOTokenFactory is CloneFactory, SafeTransfer{
         token = createClone(tokenTemplates[_templateId]);
         /// @dev GP: Triple check the token index is correct.
         tokenInfo[address(token)] = Token(true, _templateId, tokens.length);
+        
         tokens.push(address(token));
+        
         emit TokenCreated(msg.sender, address(token), tokenTemplates[_templateId]);
         if (misoFee > 0) {
             misoDiv.transfer(misoFee);
@@ -262,7 +268,7 @@ contract MISOTokenFactory is CloneFactory, SafeTransfer{
         emit TokenInitialized(address(token), _templateId, _data);
         token = deployToken(_templateId, _integratorFeeAccount);
         IMisoToken(token).initToken(_data);
-        uint256 initialTokens = IERC20(token).balanceOf(address(this));
+        uint256 initialTokens = IERC20(token).balanceOf(address(this)); // or IERC721
         if (initialTokens > 0 ) {
             _safeTransfer(token, msg.sender, initialTokens);
         }
@@ -336,5 +342,9 @@ contract MISOTokenFactory is CloneFactory, SafeTransfer{
      */
     function getTemplateId(address _tokenTemplate) external view returns (uint256) {
         return tokenTemplateToId[_tokenTemplate];
+    }
+
+    function balanceOf(address _owner, address _token) public view returns(uint256) {
+        return IERC20(_token).balanceOf(_owner);
     }
 }
