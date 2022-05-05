@@ -1,33 +1,21 @@
 // SPDX-License-Identifier: MIT    
-
 pragma solidity ^0.8.0;
+
 import "./ERC20.sol";
-import "../interfaces/IMisoToken.sol";
+import "../interfaces/IVaporToken.sol";
 
-// ---------------------------------------------------------------------
-//
-// From the MISO Token Factory
-//
-// Made for Sushi.com 
-// 
-// Enjoy. (c) Chef Gonpachi 2021 
-// <https://github.com/chefgonpachi/MISO/>
-//
-// ---------------------------------------------------------------------
-                    
-// ---------------------------------------------------------------------
+contract FixedToken is ERC20, IVaporToken {
 
-contract FixedToken is ERC20, IMisoToken {
-
-    /// @notice Miso template id for the token factory.
+    /// @notice Vapor template id for the token factory.
     /// @dev For different token types, this must be incremented.
     uint256 public constant override tokenTemplate = 1;
     
     /// @dev First set the token variables. This can only be done once
     function initToken(string memory _name, string memory _symbol, address _owner, uint256 _initialSupply) public  {
         _initERC20(_name, _symbol);
-        _mint(msg.sender, _initialSupply);
+        _mint(_owner, _initialSupply);
     }
+    
     function init(bytes calldata _data) external override payable {}
 
    function initToken(

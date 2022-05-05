@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "../OpenZeppelin/math/SafeMath.sol";
@@ -6,50 +7,13 @@ import "../Utils/CloneFactory.sol";
 import "../interfaces/IERC20.sol";
 import "../interfaces/IPointList.sol";
 import "../Utils/SafeTransfer.sol";
-import "./MISOAccessControls.sol";
-
-//----------------------------------------------------------------------------------
-//    I n s t a n t
-//
-//        .:mmm.         .:mmm:.       .ii.  .:SSSSSSSSSSSSS.     .oOOOOOOOOOOOo.  
-//      .mMM'':Mm.     .:MM'':Mm:.     .II:  :SSs..........     .oOO'''''''''''OOo.
-//    .:Mm'   ':Mm.   .:Mm'   'MM:.    .II:  'sSSSSSSSSSSSSS:.  :OO.           .OO:
-//  .'mMm'     ':MM:.:MMm'     ':MM:.  .II:  .:...........:SS.  'OOo:.........:oOO'
-//  'mMm'        ':MMmm'         'mMm:  II:  'sSSSSSSSSSSSSS'     'oOOOOOOOOOOOO'  
-//
-//----------------------------------------------------------------------------------
-//
-// Chef Gonpachi's List Factory
-//
-// A factory for deploying all sorts of list based contracts
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// The above copyright notice and this permission notice shall be included 
-// in all copies or substantial portions of the Software.
-//
-// Made for Sushi.com 
-// 
-// Enjoy. (c) Chef Gonpachi 2021 
-// <https://github.com/chefgonpachi/MISO/>
-//
-// ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
-// ---------------------------------------------------------------------
-
+import "./VaporAccessControls.sol";
 
 contract ListFactory is CloneFactory, SafeTransfer {
     using SafeMath for uint;
 
     /// @notice Responsible for access rights to the contract.
-    MISOAccessControls public accessControls;
+    VaporAccessControls public accessControls;
 
     /// @notice Whether market has been initialized or not.
     bool private initialised;
@@ -69,8 +33,8 @@ contract ListFactory is CloneFactory, SafeTransfer {
     /// @notice An array of list addresses.
     address[] public lists;
 
-    /// @notice Any MISO dividends collected are sent here.
-    address payable public misoDiv;
+    /// @notice Any Vapor dividends collected are sent here.
+    address payable public VaporDiv;
 
     /// @notice Event emitted when point list is deployed.
     event PointListDeployed(address indexed operator, address indexed addr, address pointList, address owner);
@@ -82,7 +46,7 @@ contract ListFactory is CloneFactory, SafeTransfer {
     event MinimumFeeUpdated(uint oldFee, uint newFee);
 
     /// @notice Event emitted when point list factory is initialised.
-    event MisoInitListFactory();
+    event VaporInitListFactory();
 
     /**
      * @notice Initializes point list factory variables.
@@ -92,11 +56,11 @@ contract ListFactory is CloneFactory, SafeTransfer {
      */
     function initListFactory(address _accessControls, address _pointListTemplate, uint256 _minimumFee) external  {
         require(!initialised);
-        accessControls = MISOAccessControls(_accessControls);
+        accessControls = VaporAccessControls(_accessControls);
         pointListTemplate = _pointListTemplate;
         minimumFee = _minimumFee;
         initialised = true;
-        emit MisoInitListFactory();
+        emit VaporInitListFactory();
     }
 
     /**
@@ -133,8 +97,8 @@ contract ListFactory is CloneFactory, SafeTransfer {
      * @param _divaddr Dividend address.
      */
     function setDividends(address payable _divaddr) external  {
-        require(accessControls.hasAdminRole(msg.sender), "MISOTokenFactory: Sender must be Admin");
-        misoDiv = _divaddr;
+        require(accessControls.hasAdminRole(msg.sender), "VaporTokenFactory: Sender must be Admin");
+        VaporDiv = _divaddr;
     }
 
     /**
@@ -156,8 +120,8 @@ contract ListFactory is CloneFactory, SafeTransfer {
         if (_accounts.length > 0) {
             IPointList(pointList).initPointList(address(this));
             IPointList(pointList).setPoints(_accounts, _amounts);
-            MISOAccessControls(pointList).addAdminRole(_listOwner);
-            MISOAccessControls(pointList).removeAdminRole(address(this));
+            VaporAccessControls(pointList).addAdminRole(_listOwner);
+            VaporAccessControls(pointList).removeAdminRole(address(this));
         } else {
             IPointList(pointList).initPointList(_listOwner);
         }
@@ -165,7 +129,7 @@ contract ListFactory is CloneFactory, SafeTransfer {
         lists.push(address(pointList));
         emit PointListDeployed(msg.sender, address(pointList), pointListTemplate, _listOwner);
         if (msg.value > 0) {
-            misoDiv.transfer(msg.value);
+            VaporDiv.transfer(msg.value);
         }
     }
 
@@ -177,7 +141,7 @@ contract ListFactory is CloneFactory, SafeTransfer {
      */
     function transferAnyERC20Token(address _tokenAddress, uint256 _tokens) external returns (bool success) {
         require(accessControls.hasAdminRole(msg.sender), "ListFactory: Sender must be operator");
-        _safeTransfer(_tokenAddress, misoDiv, _tokens);
+        _safeTransfer(_tokenAddress, VaporDiv, _tokens);
         return true;
     }
 

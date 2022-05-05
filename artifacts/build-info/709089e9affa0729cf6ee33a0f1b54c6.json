@@ -1,0 +1,148 @@
+{
+  "id": "709089e9affa0729cf6ee33a0f1b54c6",
+  "_format": "hh-sol-build-info-1",
+  "solcVersion": "0.8.4",
+  "solcLongVersion": "0.8.4+commit.c7e474f2",
+  "input": {
+    "language": "Solidity",
+    "sources": {
+      "contracts/interfaces/IVaporFermenter.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity ^0.8.0;\r\n\r\ninterface IVaporFermenter {\r\n    function initERC20Vault() external;\r\n}"
+      }
+    },
+    "settings": {
+      "optimizer": {
+        "enabled": true,
+        "runs": 1000
+      },
+      "outputSelection": {
+        "*": {
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ],
+          "": [
+            "ast"
+          ]
+        }
+      }
+    }
+  },
+  "output": {
+    "contracts": {
+      "contracts/interfaces/IVaporFermenter.sol": {
+        "IVaporFermenter": {
+          "abi": [
+            {
+              "inputs": [],
+              "name": "initERC20Vault",
+              "outputs": [],
+              "stateMutability": "nonpayable",
+              "type": "function"
+            }
+          ],
+          "evm": {
+            "bytecode": {
+              "generatedSources": [],
+              "linkReferences": {},
+              "object": "",
+              "opcodes": "",
+              "sourceMap": ""
+            },
+            "deployedBytecode": {
+              "generatedSources": [],
+              "immutableReferences": {},
+              "linkReferences": {},
+              "object": "",
+              "opcodes": "",
+              "sourceMap": ""
+            },
+            "methodIdentifiers": {
+              "initERC20Vault()": "4c462771"
+            }
+          },
+          "metadata": "{\"compiler\":{\"version\":\"0.8.4+commit.c7e474f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"initERC20Vault\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/interfaces/IVaporFermenter.sol\":\"IVaporFermenter\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":1000},\"remappings\":[]},\"sources\":{\"contracts/interfaces/IVaporFermenter.sol\":{\"keccak256\":\"0x2bc09809be6b6497fff112b6bda9934db25939e62f09f3af7b8ba543e1823912\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://5199299f623f4b32dd6959be119f9bc0aa2fb9b72e2c4f73577706a9e5f601f3\",\"dweb:/ipfs/QmXQBTSQoiHnriG5fwSQmmAcyfSWSqL6PNi1TEcG1QMu1x\"]}},\"version\":1}"
+        }
+      }
+    },
+    "sources": {
+      "contracts/interfaces/IVaporFermenter.sol": {
+        "ast": {
+          "absolutePath": "contracts/interfaces/IVaporFermenter.sol",
+          "exportedSymbols": {
+            "IVaporFermenter": [
+              5
+            ]
+          },
+          "id": 6,
+          "license": "MIT",
+          "nodeType": "SourceUnit",
+          "nodes": [
+            {
+              "id": 1,
+              "literals": [
+                "solidity",
+                "^",
+                "0.8",
+                ".0"
+              ],
+              "nodeType": "PragmaDirective",
+              "src": "35:23:0"
+            },
+            {
+              "abstract": false,
+              "baseContracts": [],
+              "contractDependencies": [],
+              "contractKind": "interface",
+              "fullyImplemented": false,
+              "id": 5,
+              "linearizedBaseContracts": [
+                5
+              ],
+              "name": "IVaporFermenter",
+              "nameLocation": "72:15:0",
+              "nodeType": "ContractDefinition",
+              "nodes": [
+                {
+                  "functionSelector": "4c462771",
+                  "id": 4,
+                  "implemented": false,
+                  "kind": "function",
+                  "modifiers": [],
+                  "name": "initERC20Vault",
+                  "nameLocation": "104:14:0",
+                  "nodeType": "FunctionDefinition",
+                  "parameters": {
+                    "id": 2,
+                    "nodeType": "ParameterList",
+                    "parameters": [],
+                    "src": "118:2:0"
+                  },
+                  "returnParameters": {
+                    "id": 3,
+                    "nodeType": "ParameterList",
+                    "parameters": [],
+                    "src": "129:0:0"
+                  },
+                  "scope": 5,
+                  "src": "95:35:0",
+                  "stateMutability": "nonpayable",
+                  "virtual": false,
+                  "visibility": "external"
+                }
+              ],
+              "scope": 6,
+              "src": "62:71:0",
+              "usedErrors": []
+            }
+          ],
+          "src": "35:98:0"
+        },
+        "id": 0
+      }
+    }
+  }
+}

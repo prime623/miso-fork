@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../Access/MISOAccessControls.sol";
+import "../Access/VaporAccessControls.sol";
 import "../interfaces/IGnosisProxyFactory.sol";
 import "../interfaces/ISafeGnosis.sol";
 import "../interfaces/IERC20.sol";
@@ -16,8 +16,8 @@ contract GnosisSafeFactory {
     /// @notice IGnosisProxyFactory interface.
     IGnosisProxyFactory public proxyFactory;
 
-    /// @notice MISOAccessControls interface.
-    MISOAccessControls public accessControls;
+    /// @notice VaporAccessControls interface.
+    VaporAccessControls public accessControls;
 
     /// @notice Whether initialized or not.
     bool private initialised;
@@ -29,7 +29,7 @@ contract GnosisSafeFactory {
     event GnosisSafeCreated(address indexed user, address indexed proxy, address safeGnosis, address proxyFactory);
 
     /// @notice Emitted when Gnosis Vault is initialized.
-    event MisoInitGnosisVault(address sender);
+    event VaporInitGnosisVault(address sender);
 
     /// @notice Emitted when Gnosis Safe is updated.
     event SafeGnosisUpdated(address indexed sender, address oldSafeGnosis, address newSafeGnosis);
@@ -47,9 +47,9 @@ contract GnosisSafeFactory {
         require(!initialised);
         safeGnosis = ISafeGnosis(_safeGnosis);
         proxyFactory = IGnosisProxyFactory(_proxyFactory);
-        accessControls = MISOAccessControls(_accessControls);
+        accessControls = VaporAccessControls(_accessControls);
         initialised = true;
-        emit MisoInitGnosisVault(msg.sender);
+        emit VaporInitGnosisVault(msg.sender);
     }
 
     /**

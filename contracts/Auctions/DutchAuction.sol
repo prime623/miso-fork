@@ -1,68 +1,29 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-pragma experimental ABIEncoderV2;
-
-
-//----------------------------------------------------------------------------------
-//    I n s t a n t
-//
-//        .:mmm.         .:mmm:.       .ii.  .:SSSSSSSSSSSSS.     .oOOOOOOOOOOOo.  
-//      .mMM'':Mm.     .:MM'':Mm:.     .II:  :SSs..........     .oOO'''''''''''OOo.
-//    .:Mm'   ':Mm.   .:Mm'   'MM:.    .II:  'sSSSSSSSSSSSSS:.  :OO.           .OO:
-//  .'mMm'     ':MM:.:MMm'     ':MM:.  .II:  .:...........:SS.  'OOo:.........:oOO'
-//  'mMm'        ':MMmm'         'mMm:  II:  'sSSSSSSSSSSSSS'     'oOOOOOOOOOOOO'  
-//
-//----------------------------------------------------------------------------------
-//
-// Chef Gonpachi's Dutch Auction
-//
-// A declining price auction with fair price discovery. 
-//
-// Inspired by DutchSwap's Dutch Auctions
-// https://github.com/deepyr/DutchSwap
-// 
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// The above copyright notice and this permission notice shall be included 
-// in all copies or substantial portions of the Software.
-//
-// Made for Sushi.com 
-// 
-// Enjoy. (c) Chef Gonpachi, Kusatoshi, SSMikazu 2021 
-// <https://github.com/chefgonpachi/MISO/>
-//
-// ---------------------------------------------------------------------
-// SPDX-License-Identifier: GPL-3.0                        
-// ---------------------------------------------------------------------
 
 import "../OpenZeppelin/utils/ReentrancyGuard.sol";
-import "../Access/MISOAccessControls.sol";
+import "../Access/VaporAccessControls.sol";
 import "../Utils/SafeTransfer.sol";
 import "../Utils/BoringMath.sol";
 import "../Utils/BoringERC20.sol";
 import "../Utils/Documents.sol";
 import "../interfaces/IPointList.sol";
-import "../interfaces/IMisoMarket.sol";
+import "../interfaces/IVaporMarket.sol";
 
 /// @notice Attribution to delta.financial
 /// @notice Attribution to dutchswap.com
 
-contract DutchAuction is IMisoMarket, MISOAccessControls, SafeTransfer, Documents , ReentrancyGuard  {
+contract DutchAuction is IVaporMarket, VaporAccessControls, SafeTransfer, Documents , ReentrancyGuard  {
     using BoringMath for uint256;
     using BoringMath128 for uint128;
     using BoringMath64 for uint64;
     using BoringERC20 for IERC20;
 
-    /// @notice MISOMarket template id for the factory contract.
+    /// @notice VaporMarket template id for the factory contract.
     /// @dev For different marketplace types, this must be incremented.
     uint256 public constant override marketTemplate = 2;
-    /// @dev The placeholder ETH address.
+
+    /// @notice The placeholder ETH address.
     address private constant ETH_ADDRESS = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
 
     /// @notice Main market variables.

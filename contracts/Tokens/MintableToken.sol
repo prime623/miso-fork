@@ -1,28 +1,14 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.0;
 
 import "../OpenZeppelin/access/AccessControl.sol";
 import "./ERC20/ERC20Burnable.sol";
 import "./ERC20/ERC20Pausable.sol";
-import "../interfaces/IMisoToken.sol";
+import "../interfaces/IVaporToken.sol";
 
-// ---------------------------------------------------------------------
-//
-// From the MISO Token Factory
-//
-// Made for Sushi.com 
-// 
-// Enjoy. (c) Chef Gonpachi 2021 
-// <https://github.com/chefgonpachi/MISO/>
-//
-// ---------------------------------------------------------------------
-                     
-// ---------------------------------------------------------------------
-
-contract MintableToken is AccessControl, ERC20Burnable, ERC20Pausable, IMisoToken {
+contract MintableToken is AccessControl, ERC20Burnable, ERC20Pausable, IVaporToken {
     
-    /// @notice Miso template id for the token factory.
+    /// @notice Vapor template id for the token factory.
     /// @dev For different token types, this must be incremented.
     uint256 public constant override tokenTemplate = 2;
 

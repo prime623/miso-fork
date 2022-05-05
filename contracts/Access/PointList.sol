@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-
 pragma solidity ^0.8.0;
+
 /**
- * @dev GP Make a whitelist but instead of adding and removing, set an uint amount for a address
+ * @dev GP Make a whitelist but instead of adding and removing, set uint amount for an address
  * @dev mapping(address => uint256) public points;
  * @dev This amount can be added or removed by an operator
  * @dev There is a total points preserved
@@ -10,11 +10,11 @@ pragma solidity ^0.8.0;
  */
 
 import "../OpenZeppelin/math/SafeMath.sol";
-import "./MISOAccessControls.sol";
+import "./VaporAccessControls.sol";
 import "../interfaces/IPointList.sol";
 
 
-contract PointList is IPointList, MISOAccessControls {
+contract PointList is IPointList, VaporAccessControls {
     using SafeMath for uint;
 
     /// @notice Maping an address to a number fo points.
